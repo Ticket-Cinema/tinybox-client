@@ -62,41 +62,54 @@ const ButtonWithMarginTop = styled(Button)`
 `;
 
 const textMap = {
-    login: '로그인',
-    register: '회원가입'
+    login: '로그인', register: '회원가입'
 };
 
-const AuthForm = ({type}) => {
+const AuthForm = ({type, form, onChange, onSubmit}) => {
     const text = textMap[type];
-    return (
-        <AuthFormBlock>
-            <h3>{text}</h3>
-            <form>
-                <StyledInput autoComplete={"loginId"} name={"loginId"} placeholder={"아이디"} required/>
-                <StyledInput autoComplete={"loginPw"} name={"loginPw"} placeholder={"비밀번호"}
-                             type={"password"} required/>
-                {type === 'register' && <>
-                    <StyledInput autoComplete={"loginPwCheck"} name={"loginPwCheck"} placeholder={"비밀번호 확인"}
-                                 type={"password"} required/>
-                    <StyledInput autoComplete={"name"} name={"name"} placeholder={"이름"} required/>
-                    <StyledInput autoComplete={"tel"} name={"tel"} placeholder={"전화번호"}
-                                 type={"text"} required/>
-                    <StyledInput autoComplete={"name"} name={"email"} placeholder={"이메일"} type={"email"} required/>
-                    <StyledInput autoComplete={"name"} name={"birth"} placeholder={"생년월일"} type={"date"} required/>)
-                </>}
+    return (<AuthFormBlock>
+        <h3>{text}</h3>
+        <form onSubmit={onSubmit}>
+            <StyledInput autoComplete={"loginId"} name={"loginId"} placeholder={"아이디"}
+                         onChange={onChange}
+                         value={form.loginId}
+                         required/>
+            <StyledInput autoComplete={"loginPw"} name={"loginPw"} placeholder={"비밀번호"}
+                         type={"password"}
+                         onChange={onChange}
+                         value={form.loginPw}
+                         required/>
+            {type === 'register' && <>
+                <StyledInput autoComplete={"loginPwCheck"} name={"loginPwCheck"} placeholder={"비밀번호 확인"}
+                             type={"password"}
+                             onChange={onChange}
+                             value={form.loginPwCheck}
+                             required/>
+                <StyledInput autoComplete={"name"} name={"name"} placeholder={"이름"}
+                             onChange={onChange}
+                             value={form.name}
+                             required/>
+                <StyledInput autoComplete={"tel"} name={"tel"} placeholder={"전화번호"}
+                             type={"text"}
+                             onChange={onChange}
+                             value={form.tel}
+                             required/>
+                <StyledInput autoComplete={"email"} name={"email"} placeholder={"이메일"} type={"email"}
+                             onChange={onChange}
+                             value={form.email}
+                             required/>
+                <StyledInput autoComplete={"birth"} name={"birth"} placeholder={"생년월일"} type={"date"}
+                             onChange={onChange}
+                             value={form.birth}
+                             required/>)
+            </>}
 
-                <ButtonWithMarginTop cyan fullWidth>{text}</ButtonWithMarginTop>
-            </form>
-            <LinkStyle>
-                {type === 'login' ? (
-                    <Link to={"/register"}>회원가입</Link>
-                ) : (
-                    <Link to={"/login"}>로그인</Link>
-                )}
-            </LinkStyle>
-        </AuthFormBlock>
-    )
-        ;
+            <ButtonWithMarginTop cyan fullWidth>{text}</ButtonWithMarginTop>
+        </form>
+        <LinkStyle>
+            {type === 'login' ? (<Link to={"/register"}>회원가입</Link>) : (<Link to={"/login"}>로그인</Link>)}
+        </LinkStyle>
+    </AuthFormBlock>);
 };
 
 export default AuthForm;
